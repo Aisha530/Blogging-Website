@@ -1,0 +1,27 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+      - name: Lint HTML files
+        run: htmlhint src/**/*.html
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Parcel
+        run: npm install --save-dev parcel
+      - name: Build Static Website
+        run: npm run build
